@@ -20,11 +20,14 @@
                 <?= $user['nama']; ?>
             </h6>
             <div class="d-flex">
-                <a href="#" class="badge bg-primary rounded-pill text-decoration-none text-white">Detail</a>
+                <a href="<?= BASEURL; ?>/user/detail/<?= $user['email']; ?>" class="btn badge bg-primary rounded-pill text-decoration-none text-white">Detail</a>
 
-                <a href="#" class="badge bg-warning rounded-pill text-decoration-none text-white ms-1">Ubah</a>
-
-                <a href="#" class="badge bg-danger rounded-pill text-decoration-none text-white ms-1">Hapus</a>
+                <a href="<?= BASEURL; ?>/user/ubah/<?= $user['email']; ?>" class="btn badge bg-warning rounded-pill text-decoration-none text-white ms-1">Ubah</a>
+                <!-- Form Hapus -->
+                <form action="<?= BASEURL; ?>/user/hapus" method="POST">
+                    <input type="hidden" name="id" value="<?= $user['email'];?>">
+                    <button type="submit" class="btn badge bg-danger rounded-pill text-decoration-none text-white ms-1" onclick="return confirm('Yakin mau dihapus?')" >Hapus</button>
+                </form>
             </div>
         </div>
         <?php endforeach; ?>

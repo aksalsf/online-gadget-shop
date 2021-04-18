@@ -4,7 +4,7 @@ class App {
     /**
      * URL = ./controller/method/params/.
      */
-    protected $controller = 'Produk';
+    protected $controller = 'Barang';
     protected $method = 'index';
     protected $params = [];
 
