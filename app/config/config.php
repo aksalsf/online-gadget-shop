@@ -9,4 +9,8 @@ define('FONT_FAMILY', "'Poppins', sans-serif");
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');
+<<<<<<< Updated upstream
 define('DB_NAME', 'utspemweblan');
+=======
+define('DB_NAME', 'toko_gadget');
+>>>>>>> Stashed changes
