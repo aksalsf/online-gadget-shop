@@ -2,11 +2,15 @@
 
 class Produk extends Controller {
 
-    private $formProduk;
+    private $formProdukTambah;
+    private $formProdukUbah;
 
     public function __construct()
     {
-        $this -> formProduk = new Form(BASEURL. '/Produk/insertData', 'Tambah');
+        // Form Tambah
+        $this -> formProdukTambah = new Form(BASEURL. '/Produk/insertData', 'Tambah');
+        // Form Ubah
+        $this -> formProdukUbah = new Form(BASEURL. '/Produk/ubahData', 'Ubah');
     }
 
     public function index() {
@@ -24,16 +28,16 @@ class Produk extends Controller {
         $data['title'] = "Form Tambah Produk Ponsel";
         $this -> view('templates/header', $data);
         //Menambahkan field
-        $this -> formProduk -> addField('Id', 'id_ponsel', 'text'); 
-        $this -> formProduk -> addField('Nama', 'nama', 'text'); 
-        $this -> formProduk -> addField('Merk', 'id_merk', 'select', ['APPL05','OPPO02','REDM04','SAM01','VIVO03'], ['Apple 7 Plus','Oppo Reno 3','Redmi Note 8','Samsung Gx A71','Vivo Y30'] ); 
-        $this -> formProduk -> addField('Harga', 'harga', 'number'); 
-        $this -> formProduk -> addField('Berat', 'berat', 'number'); 
-        $this -> formProduk -> addField('Spesifikasi', 'spesifikasi', 'textarea'); 
-        $this -> formProduk -> addField('Gambar', 'gambar', 'text'); 
-        $this -> formProduk -> addField('Stok', 'stok', 'number'); 
+        $this -> formProdukTambah -> addField('Id', 'id_ponsel', 'text'); 
+        $this -> formProdukTambah -> addField('Nama', 'nama', 'text'); 
+        $this -> formProdukTambah -> addField('Merk', 'id_merk', 'select', ['MERK01'],['Apple']);
+        $this -> formProdukTambah -> addField('Harga', 'harga', 'number'); 
+        $this -> formProdukTambah -> addField('Berat', 'berat', 'number'); 
+        $this -> formProdukTambah -> addField('Spesifikasi', 'spesifikasi', 'textarea'); 
+        $this -> formProdukTambah -> addField('Gambar', 'gambar', 'text'); 
+        $this -> formProdukTambah -> addField('Stok', 'stok', 'number'); 
         //Menyimpan form ke dalam $data['form]
-        $data['form'] = $this -> formProduk;
+        $data['form'] = $this -> formProdukTambah;
         $this -> view('produk/tambah', $data);
         $this -> view('templates/footer');
     }
@@ -43,6 +47,58 @@ class Produk extends Controller {
             Flasher::setFlash('berhasil', 'ditambahkan', 'success');
         } else {
             Flasher::setFlash('gagal', 'ditambahkan', 'danger');
+        }
+        header('Location:'.BASEURL.'/produk');
+        exit;
+    }
+
+    public function detailProduk($id) {
+        $data['title'] = "Detail Produk Ponsel";
+        // menampung semua $data
+        $this -> view('templates/header', $data);
+        $data['detailProduk'] = $this -> model('ProdukModel') -> ambilDataID($id);
+        $this -> view('produk/detailProduk', $data);
+        $this -> view('templates/footer');  
+    }
+
+    public function ubahProduk($id){
+        $data['title'] = "Ubah Data Produk Ponsel";
+        // menampung semua $data
+        $this -> view('templates/header', $data);
+        $dataProduk = $this -> model('ProdukModel') -> ambilDataID($id);
+        // Membuat Form
+        $this -> formProdukUbah -> addField('Id', 'id_ponsel', 'text', [$dataProduk['id_ponsel']]); 
+        $this -> formProdukUbah  -> addField('Nama', 'nama', 'text', [$dataProduk['nama']]); 
+        $this -> formProdukUbah -> addField('Merk', 'id_merk', 'select', ['MERK01'],['Apple']);
+        $this -> formProdukUbah -> addField('Harga', 'harga', 'number', [$dataProduk['harga']]); 
+        $this -> formProdukUbah -> addField('Berat', 'berat', 'number', [$dataProduk['berat']]); 
+        $this -> formProdukUbah -> addField('Spesifikasi', 'spesifikasi', 'textarea', [$dataProduk['spesifikasi']]); 
+        $this -> formProdukUbah -> addField('Gambar', 'gambar', 'text', [$dataProduk['gambar']]); 
+        $this -> formProdukUbah -> addField('Stok', 'stok', 'number', [$dataProduk['stok']]); 
+        // Menangkap nilai $id
+        $this -> formProdukUbah -> addField('', 'id', 'hidden' , [$id]); 
+
+        $data['formProduk'] = $this -> formProdukUbah;
+        // Lokasi cetak Form
+        $this -> view('produk/ubahProduk', $data);
+        $this -> view('templates/footer');  
+    }
+
+    public function UbahData() {
+        if ($this -> model('ProdukModel') -> ubahData($_POST) > 0) {
+            Flasher::setFlash('berhasil', 'diubah', 'success');
+        } else {
+            Flasher::setFlash('gagal', 'diubah', 'danger');
+        }
+        header('Location:'.BASEURL.'/produk');
+        exit;
+    }
+    
+    public function hapus() {
+        if ($this -> model('ProdukModel') -> hapusData($_POST) > 0) {
+            Flasher::setFlash('berhasil', 'dihapus', 'success');
+        } else {
+            Flasher::setFlash('gagal', 'dihapus', 'danger');
         }
         header('Location:'.BASEURL.'/produk');
         exit;
