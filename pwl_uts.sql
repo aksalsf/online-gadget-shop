@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 18, 2021 at 05:28 PM
+-- Generation Time: Apr 18, 2021 at 05:54 PM
 -- Server version: 10.4.14-MariaDB
--- PHP Version: 7.4.9
+-- PHP Version: 7.4.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `toko_gadget`
+-- Database: `pwl_uts`
 --
 
 -- --------------------------------------------------------
@@ -28,9 +28,16 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `tb_merk` (
-  `id_merk` int(6) NOT NULL,
+  `id_merk` char(6) NOT NULL,
   `nama` varchar(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_merk`
+--
+
+INSERT INTO `tb_merk` (`id_merk`, `nama`) VALUES
+('MERK01', 'Apple');
 
 -- --------------------------------------------------------
 
@@ -39,15 +46,22 @@ CREATE TABLE `tb_merk` (
 --
 
 CREATE TABLE `tb_ponsel` (
-  `id_ponsel` int(8) NOT NULL,
+  `id_ponsel` char(8) NOT NULL,
   `nama` varchar(128) NOT NULL,
-  `id_merk` int(6) NOT NULL,
+  `id_merk` char(6) NOT NULL,
   `harga` int(8) NOT NULL,
   `berat` int(3) NOT NULL,
   `spesifikasi` text NOT NULL,
   `gambar` text NOT NULL,
   `stok` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_ponsel`
+--
+
+INSERT INTO `tb_ponsel` (`id_ponsel`, `nama`, `id_merk`, `harga`, `berat`, `spesifikasi`, `gambar`, `stok`) VALUES
+('HAPE0001', 'Redmi Note 5 Galaxy', 'MERK01', 2000500, 100, 'Lengkap tidak bercela', 'hape0001.jpg', 5);
 
 -- --------------------------------------------------------
 
@@ -56,8 +70,8 @@ CREATE TABLE `tb_ponsel` (
 --
 
 CREATE TABLE `tb_transaksi` (
-  `id_transaksi` int(8) NOT NULL,
-  `id_ponsel` int(8) NOT NULL,
+  `id_transaksi` char(8) NOT NULL,
+  `id_ponsel` char(8) NOT NULL,
   `nama_pembeli` varchar(128) NOT NULL,
   `alamat_pembeli` text NOT NULL,
   `wa_pembeli` char(13) NOT NULL,
@@ -66,6 +80,33 @@ CREATE TABLE `tb_transaksi` (
   `status` varchar(24) NOT NULL COMMENT 'Pesanan Diterima\r\nMenunggu Pembayaran\r\nProses Pengiriman\r\nTransaksi Selesai',
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_transaksi`
+--
+
+INSERT INTO `tb_transaksi` (`id_transaksi`, `id_ponsel`, `nama_pembeli`, `alamat_pembeli`, `wa_pembeli`, `kuantitas`, `total`, `status`, `timestamp`) VALUES
+('ORD00001', 'HAPE0001', 'Paijo Budiman', 'Nganjuk, Jateng', '6285746352532', 2, 4001000, 'Pesanan Diterima', '2021-04-18 15:54:31');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_user`
+--
+
+CREATE TABLE `tb_user` (
+  `nama` varchar(128) NOT NULL,
+  `password` varchar(128) NOT NULL,
+  `email` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_user`
+--
+
+INSERT INTO `tb_user` (`nama`, `password`, `email`) VALUES
+('John Doe', '123', 'johndoe@gmail.com'),
+('Paijo Muhaimin', 'Lorem ipsum', 'paijo.mhm@gmail.com');
 
 --
 -- Indexes for dumped tables
@@ -92,42 +133,26 @@ ALTER TABLE `tb_transaksi`
   ADD KEY `id_ponsel` (`id_ponsel`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- Indexes for table `tb_user`
 --
-
---
--- AUTO_INCREMENT for table `tb_merk`
---
-ALTER TABLE `tb_merk`
-  MODIFY `id_merk` int(6) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tb_ponsel`
---
-ALTER TABLE `tb_ponsel`
-  MODIFY `id_ponsel` int(8) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tb_transaksi`
---
-ALTER TABLE `tb_transaksi`
-  MODIFY `id_transaksi` int(8) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `tb_user`
+  ADD PRIMARY KEY (`nama`);
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `tb_merk`
---
-ALTER TABLE `tb_merk`
-  ADD CONSTRAINT `tb_merk_ibfk_1` FOREIGN KEY (`id_merk`) REFERENCES `tb_ponsel` (`id_merk`);
-
---
 -- Constraints for table `tb_ponsel`
 --
 ALTER TABLE `tb_ponsel`
-  ADD CONSTRAINT `tb_ponsel_ibfk_1` FOREIGN KEY (`id_ponsel`) REFERENCES `tb_transaksi` (`id_ponsel`);
+  ADD CONSTRAINT `tb_ponsel_ibfk_1` FOREIGN KEY (`id_merk`) REFERENCES `tb_merk` (`id_merk`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tb_transaksi`
+--
+ALTER TABLE `tb_transaksi`
+  ADD CONSTRAINT `tb_transaksi_ibfk_1` FOREIGN KEY (`id_ponsel`) REFERENCES `tb_ponsel` (`id_ponsel`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

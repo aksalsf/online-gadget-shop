@@ -19,7 +19,7 @@
         <div class="row">
             <?php for($i=0;$i<12;$i++): ?>
             <div class="col-md-2 mb-3">
-                <a class="card border-0 shadow-sm p-3 text-decoration-none" href="http://aksal.id/kuliah/pemweb-lanjut/uts/public/produk/detail">
+                <a class="card border-0 shadow-sm p-3 text-decoration-none" href="<?php echo BASEURL; ?>/produk/detail">
                     <img src="https://cdn.eraspace.com/pub/media/catalog/product/cache/184775a204380039ae47e1177f9cfc1b/i/p/iphone_12_blue_1_5.jpg" class="card-img-top">
                     <div class="card-body text-center">
                         <h3 class="fs-6 text-body">Apple iPhone 12 128GB Blue</h3>
