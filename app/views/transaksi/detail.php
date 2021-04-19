@@ -8,6 +8,14 @@
 		</div>
 
 		<div class="alert alert-info d-flex justify-content-between">
+			Nama Barang: <h6 class="mb-0"><?= $data['detailProduk']['nama']?></h6>
+		</div>
+
+		<div class="alert alert-info d-flex justify-content-between">
+			Nama Pembeli: <h6 class="mb-0"><?= $data['detailTransaksi']['nama_pembeli']?></h6>
+		</div>
+
+		<div class="alert alert-info d-flex justify-content-between">
 			Alamat Pembeli: <h6 class="mb-0"><?= $data['detailTransaksi']['alamat_pembeli']?></h6>
 		</div>
 
