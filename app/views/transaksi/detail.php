@@ -16,6 +16,10 @@
 		</div>
 
 		<div class="alert alert-info d-flex justify-content-between">
+			Jumlah Pembelian: <h6 class="mb-0"><?= $data['detailTransaksi']['kuantitas']?></h6>
+		</div>
+
+		<div class="alert alert-info d-flex justify-content-between">
 			Total: <h6 class="mb-0"><?= $data['detailTransaksi']['total']?></h6>
 		</div>
 
