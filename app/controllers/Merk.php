@@ -17,6 +17,7 @@ class Merk extends Controller {
         $data['title'] = "Dashboard Merk";
         // menampung semua $data
         $this -> view('templates/header', $data);
+        $this -> view('templates/nav');
         // Data database
         $data['dataMerk'] = $this -> model('MerkModel') -> ambilDataMerk();
         $this -> view('merk/index', $data);

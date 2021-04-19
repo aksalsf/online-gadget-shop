@@ -38,7 +38,7 @@
     </div>
     <div class="alert alert-info d-flex justify-content-between">
        <h6 class="mb-0">
-      Gambar : <?= $data['detailProduk']['gambar']; ?>
+      Stok : <?= $data['detailProduk']['stok']; ?>
     </h6>
     </div>
 

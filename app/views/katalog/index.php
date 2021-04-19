@@ -17,17 +17,21 @@
         <h2 class="h3">Rekomendasi Editor</h2>
         <hr>
         <div class="row">
-            <?php for($i=0;$i<12;$i++): ?>
+            <?php foreach($data['produk'] as $key => $produk): ?>
             <div class="col-md-2 mb-3">
-                <a class="card border-0 shadow-sm p-3 text-decoration-none" href="<?php echo BASEURL; ?>/produk/detail">
-                    <img src="https://cdn.eraspace.com/pub/media/catalog/product/cache/184775a204380039ae47e1177f9cfc1b/i/p/iphone_12_blue_1_5.jpg" class="card-img-top">
+                <a class="card border-0 shadow-sm p-3 text-decoration-none" href="<?php echo BASEURL; ?>/katalog/detail/<?= $produk['id_ponsel'] ?>">
+                    <img src="<?= BASEURL.'/img/uploads/'.$produk['gambar']; ?>">
                     <div class="card-body text-center">
-                        <h3 class="fs-6 text-body">Apple iPhone 12 128GB Blue</h3>
-                        <small class="text-danger">Rp. 15.499.000</small>
+                        <h3 class="fs-6 text-body">
+                            <?= $produk['nama'] ?>
+                        </h3>
+                        <small class="text-danger">
+                            <?= "IDR " . number_format($produk['harga'],0,',','.'); ?>
+                        </small>
                     </div>
                 </a>
             </div>
-            <?php endfor; ?>
+            <?php endforeach; ?>
         </div>
     </main>
 </main>

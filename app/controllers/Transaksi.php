@@ -11,6 +11,7 @@ class Transaksi extends Controller {
     public function index() {
         $data['title'] = "Data Transaksi";
         $this -> view('templates/header', $data);
+        $this -> view('templates/nav');
         // Database
         $data['dataUser'] = $this -> model('TransaksiModels') -> ambilData();
         $this -> view('transaksi/home', $data);
