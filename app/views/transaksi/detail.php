@@ -1,14 +1,14 @@
 <div class="container-fluid d-flex flex-column" style="height: 100vh">
-	<div class="col-md-6 card p-5 mx-auto mt-3">
+	<div class="col-md-8 card p-5 mx-auto mt-3">
 		<h1 class="text-center fw-bold">
 			<?= $data['title']; ?>
 		</h1><hr>
 		<div class="alert alert-info d-flex justify-content-between">
-			Id Transaksi: <h6 class="mb-0"><?= $data['detailTransaksi']['id_transaksi']?></h6>
+			Id Transaksi: <h6 class="mb-0"><?= $data['detailTransaksi']['id_transaksi'];?></h6>
 		</div>
 
 		<div class="alert alert-info d-flex justify-content-between">
-			Nama Barang: <h6 class="mb-0"><?= $data['detailProduk']['nama']?></h6>
+			Nama Barang: <h6 class="mb-0"><?= $data['detailProduk']['nama'];?></h6>
 		</div>
 
 		<div class="alert alert-info d-flex justify-content-between">
@@ -28,7 +28,9 @@
 		</div>
 
 		<div class="alert alert-info d-flex justify-content-between">
-			Total: <h6 class="mb-0"><?= $data['detailTransaksi']['total']?></h6>
+			Total: <h6 class="mb-0">
+			<?= "IDR " . number_format($data['detailTransaksi']['total'],0,',','.'); ?>
+			</h6>
 		</div>
 
 		<div class="alert alert-info d-flex justify-content-between">

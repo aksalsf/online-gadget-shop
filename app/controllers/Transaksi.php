@@ -11,6 +11,7 @@ class Transaksi extends Controller {
     public function index() {
         $data['title'] = "Data Transaksi";
         $this -> view('templates/header', $data);
+        $this -> view('templates/nav');
         // Database
         $data['dataUser'] = $this -> model('TransaksiModels') -> ambilData();
         $this -> view('transaksi/home', $data);
@@ -32,7 +33,7 @@ class Transaksi extends Controller {
     	$data['title'] = "Detail Transaksi";
         $this -> view('templates/header', $data);
         $data['detailTransaksi'] = $this -> model('TransaksiModels') -> ambilDataId($id);
-        $data['detailProduk'] = $this -> model('ProdukModel') -> ambilDataID($id);
+        $data['detailProduk'] = $this -> model('ProdukModel') -> ambilDataID($data['detailTransaksi']['id_ponsel']);
         $this -> view('transaksi/detail', $data);
         $this -> view('templates/footer');
     }

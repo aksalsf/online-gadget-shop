@@ -73,12 +73,20 @@ class Produk extends Controller {
     public function ubahProduk($id){
         $data['title'] = "Ubah Data Produk Ponsel";
         // menampung semua $data
+        // Untuk menampilkan merk dari tabel merk
+        $dataMerk = $this -> model('MerkModel') -> ambilDataMerk();
+        $idMerk = [];
+        $namaMerk = [];
+        foreach ($dataMerk as $key => $merk) {
+            array_push($idMerk, $merk['id_merk']);
+            array_push($namaMerk, $merk['nama']);
+        }
         $this -> view('templates/header', $data);
         $dataProduk = $this -> model('ProdukModel') -> ambilDataID($id);
         // Membuat Form
         $this -> formProdukUbah -> addField('Id', 'id_ponsel', 'text', [$dataProduk['id_ponsel']]); 
         $this -> formProdukUbah  -> addField('Nama', 'nama', 'text', [$dataProduk['nama']]); 
-        $this -> formProdukUbah -> addField('Merk', 'id_merk', 'select', ['MERK01'],['Apple']);
+        $this -> formProdukUbah-> addField('Merk', 'id_merk', 'select', $idMerk,$namaMerk);
         $this -> formProdukUbah -> addField('Harga', 'harga', 'number', [$dataProduk['harga']]); 
         $this -> formProdukUbah -> addField('Berat', 'berat', 'number', [$dataProduk['berat']]); 
         $this -> formProdukUbah -> addField('Spesifikasi', 'spesifikasi', 'textarea', [$dataProduk['spesifikasi']]); 
